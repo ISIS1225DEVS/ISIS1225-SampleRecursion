@@ -25,6 +25,9 @@
 
 import config as cf
 import sys
+# import resource
+import gc
+import threading
 import controller
 from DISClib.ADT import list as lt
 assert cf
@@ -131,25 +134,26 @@ control = newController()
 
 # configurando el limite de recursion
 default_limit = 1000
-sys.setrecursionlimit(default_limit*10)
 
 # variables utoles para el programa
 # opciones de true
 bool_lt_opt = ("s", "S", "1", True, "true", "True", "si", "Si", "SI")
 
-# configurando si usa algoritmos recursivos
-rec = True
 
-# main del ejercicio
-if __name__ == "__main__":
+def thread_cycle():
 
     """
     Menu principal
     """
     working = True
+    # configurando si usa algoritmos recursivos
+    rec = True
+
     # ciclo del menu
     while working:
         printMenu()
+        # liberar memoria
+        gc.collect()
         inputs = input("Seleccione una opción para continuar\n")
         if int(inputs) == 1:
             print("Cargando información de los archivos ....")
@@ -247,3 +251,12 @@ if __name__ == "__main__":
                 working = False
                 print("\nGracias por utilizar el programa.")
     sys.exit(0)
+
+
+# main del ejercicio
+if __name__ == "__main__":
+    threading.stack_size(67108864*2)  # 128MB stack
+    sys.setrecursionlimit(default_limit*1000000)
+    # sys.setrecursionlimit(2 ** 20)
+    thread = threading.Thread(target=thread_cycle)
+    thread.start()

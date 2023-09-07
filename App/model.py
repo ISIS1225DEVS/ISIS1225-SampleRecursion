@@ -27,7 +27,7 @@
 import random
 import config as cf
 from DISClib.ADT import list as lt
-from DISClib.Algorithms.Sorting import shellsort as sa
+from DISClib.Algorithms.Sorting import mergesort as ms
 assert cf
 
 """
@@ -239,7 +239,7 @@ def sortBooks(catalog):
     # toma la lista de libros del catalogo
     books = catalog["books"]
     # ordena la lista de libros
-    sorted_list = sa.sort(books, compareISBN)
+    sorted_list = ms.sort(books, compareISBN)
     # actualiza la lista de libros del catalogo
     catalog["books"] = sorted_list
     return sorted_list
@@ -271,10 +271,8 @@ def shuffleBooks(catalog):
 
 # Funciones de busqueda
 
-def findBookByISBN(catalog, bookisbn, low, high):
+def findBookByISBN(books, bookisbn, low, high):
     # TODO implementar recursivamente binary search para el lab 5
-    # Se obtiene la lista de libros del catalogo
-    books = catalog["books"]
     # si los limites son correctos
     if high >= low:
         # se obtiene el libro de la mitad
@@ -285,10 +283,10 @@ def findBookByISBN(catalog, bookisbn, low, high):
             return mid
         # si el ISBN del libro es mayor al de busqueda, va ala mitad inferior
         elif tb["isbn13"] < bookisbn:
-            return findBookByISBN(catalog, bookisbn, low, mid - 1)
+            return findBookByISBN(books, bookisbn, low, mid - 1)
         # si el ISBN del libro es menor al de busqueda, va ala mitad inferior
         else:
-            return findBookByISBN(catalog, bookisbn, mid + 1, high)
+            return findBookByISBN(books, bookisbn, mid + 1, high)
     # si la lista de libros esta vacia, retorna -1
     else:
         return -1
@@ -299,13 +297,14 @@ def recursiveFindBookByISBN(catalog, bookisbn):
     # inicializa los limites de la lista de libros
     low = 1
     high = lt.size(catalog["books"])
+    books = catalog["books"]
     # ejecuta la busqueda recursiva
-    bookidx = findBookByISBN(catalog, bookisbn, low, high)
+    bookidx = findBookByISBN(books, bookisbn, low, high)
     # preprocesa la respuesta
     book = None
     # si el libro existe, lo retorna
     if bookidx > 0:
-        book = lt.getElement(catalog["books"], bookidx)
+        book = lt.getElement(books, bookidx)
     # de lo contrario, devuelve None
     else:
         book = None
@@ -316,7 +315,6 @@ def iterativeFindBookByISBN(catalog, bookid):
     # TODO implementar iterativamente binary search para el lab 5
     # inicializa los limites de la lista de libros
     books = catalog["books"]
-    print("buscando:", bookid)
     # el indice de las listas DISCLib empieza en 1
     low = 1
     high = lt.size(books)
@@ -350,10 +348,8 @@ def iterativeFindBookByISBN(catalog, bookid):
 
 # funciones para calcular estadisticas
 
-def AvgBookRatings(catalog, idx, n):
+def AvgBookRatings(books, idx, n):
     # TODO implementar recursivamente el calculo del promedio para el lab 5
-    # inicializa la lista de libros y el promedio
-    books = catalog["books"]
     # si es el ultimo elemento, retorna el promedio
     if idx == n:
         avg = float(lt.getElement(books, idx)["average_rating"])/n
@@ -361,7 +357,7 @@ def AvgBookRatings(catalog, idx, n):
     # de lo contrario, suma el rating del libro y llama recursivamente
     else:
         avg = float(lt.getElement(books, idx)["average_rating"])/n
-        return avg + AvgBookRatings(catalog, idx + 1, n)
+        return avg + AvgBookRatings(books, idx + 1, n)
     # if low < high:
     #     tr = float(lt.getElement(books, low)["average_rating"])
     #     # _sum =
@@ -373,9 +369,11 @@ def AvgBookRatings(catalog, idx, n):
 
 
 def recursiveAvgBooksRating(catalog):
+    # inicializa la lista de libros y el promedio
     low = 1
     high = lt.size(catalog["books"])
-    return AvgBookRatings(catalog, low, high)
+    books = catalog["books"]
+    return AvgBookRatings(books, low, high)
 
 
 def iterativeAvgBooksRating(catalog):
