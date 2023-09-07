@@ -176,7 +176,6 @@ if __name__ == "__main__":
 
         elif int(inputs) == 5:
             # TODO completar modificaciones para el lab 5
-            # size = input("Indique tamaño de la muestra: ")
             result = controller.sortBooks(control)
             delta_time = f"{result[0]:.3f}"
             sorted_list = result[1]
@@ -228,7 +227,7 @@ if __name__ == "__main__":
             print("TODO!!!")
 
         elif int(inputs) == 10:
-            # configurar
+            # configurar si usa algoritmos recursivos
             rec = input("Usar algoritmos recursivos? (S/N): ")
             if rec in bool_lt_opt:
                 rec = True
@@ -240,7 +239,6 @@ if __name__ == "__main__":
             print("\nGracias por utilizar el programa.")
 
         else:
-            # continue
             # confirmar salida del programa
             end_str = "¿desea salir del programa? (s/n): "
             opt_usr = input(end_str)

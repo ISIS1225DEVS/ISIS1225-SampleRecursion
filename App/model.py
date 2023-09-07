@@ -350,23 +350,32 @@ def iterativeFindBookByISBN(catalog, bookid):
 
 # funciones para calcular estadisticas
 
-def AverageBookRatings(catalog, low, high):
+def AvgBookRatings(catalog, idx, n):
     # TODO implementar recursivamente el calculo del promedio para el lab 5
+    # inicializa la lista de libros y el promedio
     books = catalog["books"]
-    if low < high:
-        tr = float(lt.getElement(books, low)["average_rating"])
-        _sum = tr + AverageBookRatings(catalog, low + 1, high)
-        avg = _sum / (high - low + 1)
+    # si es el ultimo elemento, retorna el promedio
+    if idx == n:
+        avg = float(lt.getElement(books, idx)["average_rating"])/n
         return avg
+    # de lo contrario, suma el rating del libro y llama recursivamente
     else:
-        avg = float(lt.getElement(books, low)["average_rating"])
-        return avg
+        avg = float(lt.getElement(books, idx)["average_rating"])/n
+        return avg + AvgBookRatings(catalog, idx + 1, n)
+    # if low < high:
+    #     tr = float(lt.getElement(books, low)["average_rating"])
+    #     # _sum =
+    #     avg = (tr + AvgBookRatings(catalog, low + 1, high))/(high - low + 1)
+    #     return avg
+    # else:
+    #     avg = float(lt.getElement(books, low)["average_rating"])
+    #     return avg
 
 
 def recursiveAvgBooksRating(catalog):
     low = 1
     high = lt.size(catalog["books"])
-    return AverageBookRatings(catalog, low, high)
+    return AvgBookRatings(catalog, low, high)
 
 
 def iterativeAvgBooksRating(catalog):
