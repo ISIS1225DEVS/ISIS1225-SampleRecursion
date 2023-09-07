@@ -29,7 +29,6 @@ import controller
 from DISClib.ADT import list as lt
 assert cf
 
-
 """
 La vista se encarga de la interacción con el usuario
 Presenta el menu de opciones  y  por cada seleccion
@@ -56,7 +55,7 @@ def printMenu():
     print("6- Desordenar los libros por ISBN")
     # TODO completar opciones del menu para el lab 5
     print("7- Buscar un libro por ISBN")
-    print("8- calcular el rating promedio de libros")
+    print("8- Calcular el rating promedio de libros")
     print("9- Recuperar el primer libro con un rating dado")
     print("0- Salir")
 
@@ -130,6 +129,17 @@ def printSearchResults(book):
 control = newController()
 
 
+# configurando el limite de recursion
+default_limit = 1000
+sys.setrecursionlimit(default_limit*10)
+
+# variables utoles para el programa
+# opciones de true
+bool_lt_opt = ("s", "S", "1", True, "true", "True", "si", "Si", "SI")
+
+# configurando si usa algoritmos recursivos
+rec = True
+
 # main del ejercicio
 if __name__ == "__main__":
 
@@ -141,7 +151,7 @@ if __name__ == "__main__":
     while working:
         printMenu()
         inputs = input("Seleccione una opción para continuar\n")
-        if int(inputs[0]) == 1:
+        if int(inputs) == 1:
             print("Cargando información de los archivos ....")
             bk, at, tg, bktg = loadData()
             print("Libros cargados: " + str(bk))
@@ -149,22 +159,22 @@ if __name__ == "__main__":
             print("Géneros cargados: " + str(tg))
             print("Asociación de Géneros a Libros cargados: " + str(bktg))
 
-        elif int(inputs[0]) == 2:
+        elif int(inputs) == 2:
             number = input("Buscando los TOP ?: ")
             books = controller.getBestBooks(control, int(number))
             printBestBooks(books)
 
-        elif int(inputs[0]) == 3:
+        elif int(inputs) == 3:
             authorname = input("Nombre del autor a buscar: ")
             author = controller.getBooksByAuthor(control, authorname)
             printAuthorData(author)
 
-        elif int(inputs[0]) == 4:
+        elif int(inputs) == 4:
             label = input("Etiqueta a buscar: ")
             book_count = controller.countBooksByTag(control, label)
             print("Se encontraron: ", book_count, " Libros")
 
-        elif int(inputs[0]) == 5:
+        elif int(inputs) == 5:
             # TODO completar modificaciones para el lab 5
             # size = input("Indique tamaño de la muestra: ")
             result = controller.sortBooks(control)
@@ -175,7 +185,7 @@ if __name__ == "__main__":
             print("Para", size, "elementos, tiempo:", str(delta_time), "[ms]")
             printSortResults(sorted_list)
 
-        elif int(inputs[0]) == 6:
+        elif int(inputs) == 6:
             # TODO completar modificaciones para el lab 5
             result = controller.shuffleBooks(control)
             delta_time = f"{result[0]:.3f}"
@@ -185,37 +195,57 @@ if __name__ == "__main__":
             print("Para", size, "elementos, tiempo:", str(delta_time), "[ms]")
             printSortResults(shuffled_list)
 
-        elif int(inputs[0]) == 7:
+        elif int(inputs) == 7:
             # TODO completar modificaciones para el lab 5
             isbn = input("Ingrese el ISBN del libro a buscar: ")
             isbn = int(isbn)
-            result = controller.findBookByISBN(control, isbn, recursive=False)
+            result = controller.findBookByISBN(control,
+                                               isbn,
+                                               recursive=rec)
             delta_time = f"{result[0]:.3f}"
             book = result[1]
             print("===== El libro encontrado es: =====")
             print("Para encontrar el libro con ISBN", isbn,
                   ", tiempo:", str(delta_time), "[ms]")
+            print("Algoritmo recursivo:", rec)
             printSearchResults(book)
 
-        elif int(inputs[0]) == 8:
+        elif int(inputs) == 8:
             # TODO completar modificaciones para el lab 5
-            result = controller.getBooksAverageRating(control)
+            result = controller.getBooksAverageRating(control,
+                                                      recursive=rec)
             delta_time = f"{result[0]:.3f}"
             average = result[1]
             print("===== El rating promedio de los libros es: =====")
-            print("Para", lt.size(average), "elementos, tiempo:",
+            print("Para", controller.bookSize(control), "elementos, tiempo:",
                   str(delta_time), "[ms]")
             average = f"{average:.3f}"
+            print("Algoritmo recursivo:", rec)
             print("El rating promedio es:", average)
 
-        elif int(inputs[0]) == 9:
+        elif int(inputs) == 9:
             # TODO completar modificaciones para el lab 5
             print("TODO!!!")
 
-        elif int(inputs[0]) == 0:
+        elif int(inputs) == 10:
+            # configurar
+            rec = input("Usar algoritmos recursivos? (S/N): ")
+            if rec in bool_lt_opt:
+                rec = True
+            else:
+                rec = False
+
+        elif int(inputs) == 0:
             working = False
             print("\nGracias por utilizar el programa.")
 
         else:
-            continue
+            # continue
+            # confirmar salida del programa
+            end_str = "¿desea salir del programa? (s/n): "
+            opt_usr = input(end_str)
+            # diferentes opciones de salida
+            if opt_usr in bool_lt_opt:
+                working = False
+                print("\nGracias por utilizar el programa.")
     sys.exit(0)
