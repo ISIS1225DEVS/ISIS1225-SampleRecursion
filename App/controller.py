@@ -69,9 +69,15 @@ def loadBooks(catalog):
     cada uno de ellos, se crea en la lista de autores, a dicho autor y una
     referencia al libro que se esta procesando.
     """
-    booksfile = cf.data_dir + "GoodReads/books-small.csv"
+    booksfile = cf.data_dir + "GoodReads/books.csv"
     input_file = csv.DictReader(open(booksfile, encoding="utf-8"))
     for book in input_file:
+        # preprocesamiento de los datos para convertirlos al tipo correcto
+        if book["isbn13"] not in (None, ""):
+            book["isbn13"] = int(float(book["isbn13"]))
+        else:
+            book["isbn13"] = 0
+            # print(book)
         model.addBook(catalog, book)
     return model.bookSize(catalog), model.authorSize(catalog)
 
@@ -91,7 +97,7 @@ def loadBooksTags(catalog):
     """
     Carga la información que asocia tags con libros.
     """
-    booktagsfile = cf.data_dir + "GoodReads/book_tags-small.csv"
+    booktagsfile = cf.data_dir + "GoodReads/book_tags.csv"
     input_file = csv.DictReader(open(booktagsfile, encoding="utf-8"))
     for booktag in input_file:
         model.addBookTag(catalog, booktag)
@@ -100,7 +106,7 @@ def loadBooksTags(catalog):
 
 # Funciones de ordenamiento
 
-def sortBooks(control, size):
+def sortBooks(control):
     """
     Ordena los libros por average_rating y toma el los tiempos en los
     que se inició la ejecución del requerimiento y cuando finalizó
@@ -109,10 +115,24 @@ def sortBooks(control, size):
     """
     # TODO completar los cambios del return en el sort para el lab 4 (Parte 2).
     start_time = getTime()
-    model.sortBooks(control["model"], size)
+    sorted_list = model.sortBooks(control['model'])
     end_time = getTime()
     delta_time = deltaTime(start_time, end_time)
-    return delta_time
+    return delta_time, sorted_list
+
+
+def shuffleBooks(control):
+    """
+    Desordena los libros por average_rating y toma el los tiempos en los
+    que se inició la ejecución del requerimiento y cuando finalizó
+    con getTime(). Finalmente calcula el tiempo que demoró la ejecución
+    de la función con deltaTime()
+    """
+    start_time = getTime()
+    unsorted_list = model.shuffleBooks(control['model'])
+    end_time = getTime()
+    delta_time = deltaTime(start_time, end_time)
+    return delta_time, unsorted_list
 
 
 # Funciones de consulta sobre el catálogo
@@ -139,8 +159,57 @@ def countBooksByTag(control, tag):
     """
     return model.countBooksByTag(control["model"], tag)
 
-# Funciones para medir tiempos de ejecucion
 
+# funciones de busqueda
+
+def findBookByISBN(control, isbn, recursive=True):
+    """
+    Busca un libro por su ISBN
+    """
+    star_time = getTime()
+    # si recursive es True, se usa la busqueda recursiva
+    if recursive:
+        # print("recursive")
+        book = model.recursiveFindBookByISBN(control["model"], isbn)
+        stop_time = getTime()
+        delta_time = deltaTime(star_time, stop_time)
+        return delta_time, book
+
+    # de lo contrario, se usa la busqueda iterativa
+    else:
+        # print("iterative")
+        book = model.iterativeFindBookByISBN(control["model"], isbn)
+        stop_time = getTime()
+        delta_time = deltaTime(star_time, stop_time)
+        return delta_time, book
+
+
+# Funciones para calcular estadísticas
+
+def getBooksAverageRating(control, recursive=True):
+    """
+    Retorna el promedio de los ratings de los libros
+    """
+    star_time = getTime()
+    # si recursive es True, se usa el calculo recursivo
+    if recursive:
+        # print("recursive")
+        avg = model.recursiveAvgBooksRating(control["model"])
+        end_time = getTime()
+        delta_time = deltaTime(star_time, end_time)
+        return delta_time, avg
+
+    # de lo contrario, se usa el calculo iterativo
+    else:
+        # print("iterative")
+        avg = model.iterativeAvgBooksRating(control["model"])
+        end_time = getTime()
+        delta_time = deltaTime(star_time, end_time)
+        return delta_time, avg
+    # return model.getAverageRating(control["model"])
+
+
+# Funciones para medir tiempos de ejecucion
 
 def getTime():
     """

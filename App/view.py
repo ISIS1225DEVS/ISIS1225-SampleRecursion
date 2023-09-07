@@ -52,7 +52,12 @@ def printMenu():
     print("2- Consultar los Top x libros por promedio")
     print("3- Consultar los libros de un autor")
     print("4- Libros por género")
-    print("5 - Ordenar los libros por rating")
+    print("5- Ordenar los libros por ISBN")
+    print("6- Desordenar los libros por ISBN")
+    # TODO completar opciones del menu para el lab 5
+    print("7- Buscar un libro por ISBN")
+    print("8- calcular el rating promedio de libros")
+    print("9- Recuperar el primer libro con un rating dado")
     print("0- Salir")
 
 
@@ -70,7 +75,7 @@ def printAuthorData(author):
         print("Promedio: " + str(author["average_rating"]))
         print("Total de libros: " + str(lt.size(author["books"])))
         for book in lt.iterator(author["books"]):
-            print("Titulo: " + book["title"] + "  ISBN: " + book["isbn"])
+            print("Titulo:", book["title"], "ISBN:", book["isbn13"])
     else:
         print("No se encontro el autor")
 
@@ -80,15 +85,45 @@ def printBestBooks(books):
     if size:
         print(" Estos son los mejores libros: ")
         for book in lt.iterator(books):
-            print("Titulo: " + book["title"] + "  ISBN: " +
-                  book["isbn"] + " Rating: " + book["average_rating"])
+            print("Titulo:", book["title"], "ISBN:",
+                  book["isbn13"], "Rating:", book["average_rating"])
     else:
         print("No se encontraron libros")
 
 
 def printSortResults(sort_books, sample=3):
-    # TODO completar funcion para imprimir resultados sort lab 4
-    pass
+    size = lt.size(sort_books)
+    if size <= sample*2:
+        print("Los", size, "libros ordenados son:")
+        for book in lt.iterator(sort_books):
+            print("Titulo:", book["title"], "ISBN:",
+                  book["isbn13"], "Rating:", book["average_rating"])
+    else:
+        print("Los", sample, "primeros libros ordenados son:")
+        i = 1
+        while i <= sample:
+            book = lt.getElement(sort_books, i)
+            print("Titulo:", book["title"], "ISBN:",
+                  book["isbn13"], "Rating:", book["average_rating"])
+            i += 1
+
+        print("Los", sample, "últimos libros ordenados son:")
+        i = size - sample + 1
+        while i <= size:
+            book = lt.getElement(sort_books, i)
+            print("Titulo:", book["title"], "ISBN:",
+                  book["isbn13"], "Rating:", book["average_rating"])
+            i += 1
+
+
+def printSearchResults(book):
+    # TODO completar funcion para imprimir resultados search lab 5
+    if book is not None:
+        print("El libro es: ")
+        for key in book.keys():
+            print("\t'" + key + "': ", book[key])
+    else:
+        print("El libro no se encuentra en la lista!!!")
 
 
 # Se crea el controlador asociado a la vista
@@ -130,15 +165,56 @@ if __name__ == "__main__":
             print("Se encontraron: ", book_count, " Libros")
 
         elif int(inputs[0]) == 5:
-            # TODO completar modificaciones para el laboratorio 4
-            size = input("Indique tamaño de la muestra: ")
-            result = controller.sortBooks(control, int(size))
-            result = f"{result:.3f}"
-            print("Para", size, "elementos, delta tiempo:",
-                  str(result), "[ms]\n")
+            # TODO completar modificaciones para el lab 5
+            # size = input("Indique tamaño de la muestra: ")
+            result = controller.sortBooks(control)
+            delta_time = f"{result[0]:.3f}"
+            sorted_list = result[1]
+            size = lt.size(sorted_list)
+            print("===== Los libros ordenados por ISBN son: =====")
+            print("Para", size, "elementos, tiempo:", str(delta_time), "[ms]")
+            printSortResults(sorted_list)
+
+        elif int(inputs[0]) == 6:
+            # TODO completar modificaciones para el lab 5
+            result = controller.shuffleBooks(control)
+            delta_time = f"{result[0]:.3f}"
+            shuffled_list = result[1]
+            size = lt.size(shuffled_list)
+            print("===== Los libros desordenados por ISBN son: =====")
+            print("Para", size, "elementos, tiempo:", str(delta_time), "[ms]")
+            printSortResults(shuffled_list)
+
+        elif int(inputs[0]) == 7:
+            # TODO completar modificaciones para el lab 5
+            isbn = input("Ingrese el ISBN del libro a buscar: ")
+            isbn = int(isbn)
+            result = controller.findBookByISBN(control, isbn, recursive=False)
+            delta_time = f"{result[0]:.3f}"
+            book = result[1]
+            print("===== El libro encontrado es: =====")
+            print("Para encontrar el libro con ISBN", isbn,
+                  ", tiempo:", str(delta_time), "[ms]")
+            printSearchResults(book)
+
+        elif int(inputs[0]) == 8:
+            # TODO completar modificaciones para el lab 5
+            result = controller.getBooksAverageRating(control)
+            delta_time = f"{result[0]:.3f}"
+            average = result[1]
+            print("===== El rating promedio de los libros es: =====")
+            print("Para", lt.size(average), "elementos, tiempo:",
+                  str(delta_time), "[ms]")
+            average = f"{average:.3f}"
+            print("El rating promedio es:", average)
+
+        elif int(inputs[0]) == 9:
+            # TODO completar modificaciones para el lab 5
+            print("TODO!!!")
 
         elif int(inputs[0]) == 0:
-            sys.exit(0)
+            working = False
+            print("\nGracias por utilizar el programa.")
 
         else:
             continue
