@@ -60,6 +60,7 @@ def printMenu():
     print("7- Buscar un libro por ISBN")
     print("8- Calcular el rating promedio de libros")
     print("9- Recuperar el primer libro con un rating dado")
+    print("10- Cambiar tipo de algoritmos (recursivos o iterativos)")
     print("0- Salir")
 
 

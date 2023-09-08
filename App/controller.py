@@ -194,22 +194,14 @@ def findBookByISBN(control, isbn, recursive=True):
     """
     Busca un libro por su ISBN
     """
+    # inicializa el tiempo de procesamiento
     star_time = getTime()
-    # si recursive es True, se usa la busqueda recursiva
-    if recursive:
-        # print("recursive")
-        book = model.recursiveFindBookByISBN(control["model"], isbn)
-        stop_time = getTime()
-        delta_time = deltaTime(star_time, stop_time)
-        return delta_time, book
-
-    # de lo contrario, se usa la busqueda iterativa
-    else:
-        # print("iterative")
-        book = model.iterativeFindBookByISBN(control["model"], isbn)
-        stop_time = getTime()
-        delta_time = deltaTime(star_time, stop_time)
-        return delta_time, book
+    # ejecuta la busqueda
+    book = model.findBookbyISBN(control["model"], isbn)
+    stop_time = getTime()
+    # retorna el tiempo de procesamiento y el libro encontrado
+    delta_time = deltaTime(star_time, stop_time)
+    return delta_time, book
 
 
 # Funciones para calcular estadísticas
@@ -218,23 +210,14 @@ def getBooksAverageRating(control, recursive=True):
     """
     Retorna el promedio de los ratings de los libros
     """
+    # inicializa el tiempo de procesamiento
     star_time = getTime()
-    # si recursive es True, se usa el calculo recursivo
-    if recursive:
-        # print("recursive")
-        avg = model.recursiveAvgBooksRating(control["model"])
-        end_time = getTime()
-        delta_time = deltaTime(star_time, end_time)
-        return delta_time, avg
-
-    # de lo contrario, se usa el calculo iterativo
-    else:
-        # print("iterative")
-        avg = model.iterativeAvgBooksRating(control["model"])
-        end_time = getTime()
-        delta_time = deltaTime(star_time, end_time)
-        return delta_time, avg
-    # return model.getAverageRating(control["model"])
+    # ejecuta el promedio
+    avg = model.averageBookRatings(control["model"])
+    end_time = getTime()
+    # retorna el tiempo de procesamiento y el promedio
+    delta_time = deltaTime(star_time, end_time)
+    return delta_time, avg
 
 
 # Funciones para medir tiempos de ejecucion
