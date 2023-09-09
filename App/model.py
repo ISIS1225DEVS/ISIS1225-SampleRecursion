@@ -287,7 +287,14 @@ def averageBookRatings(catalog, recursive=True):
         return iterativeAvgBooksRating(catalog)
 
 
-# Funciones de busqueda
+def filterBooksByRating(catalog, low, high, recursive=True):
+    if recursive:
+        return recursiveFilterBooksByRating(catalog, low, high)
+    else:
+        return iterativeFilterBooksByRating(catalog, low, high)
+
+
+# Funciones de busqueda y filtros
 
 def searchBookByISBN(books, bookisbn, low, high):
     # TODO implementar recursivamente binary search para el lab 5
@@ -398,3 +405,50 @@ def iterativeAvgBooksRating(catalog):
     avg /= lt.size(books)
     # devuelve el promedio
     return avg
+
+
+def recursiveFilterBooksByRating(catalog, low, high):
+    # TODO implementar recursivamente el filtrado para el lab 5
+    # inicializa la lista de libros y el indice
+    i = 1
+    books = catalog["books"]
+    # configura la lista de libros filtrados
+    answer = lt.newList("SINGLE_LINKED",
+                        cmpfunction=comparebooks)
+    # llama la funcion recursiva dentro del rango de libros
+    return filteringBooksByRating(books, answer, low, high, idx=i)
+
+
+def filteringBooksByRating(books, answer, low, high, idx=1):
+    # TODO implementar recursivamente el filtrado para el lab 5
+    # si la lista esta vacia, retorna una lista vacia
+    if lt.isEmpty(books) is True:
+        answer = lt.newList("SINGLE_LINKED")
+        return answer
+    # si el indice es es igual al tamaño de la lista, retorna la lista
+    if idx == lt.size(books):
+        return answer
+
+    cond = float(lt.getElement(books, idx)["average_rating"])
+    # si el rating del libro esta entre los limites, lo agrega a la lista
+    if low <= cond <= high:
+        lt.addLast(answer, lt.getElement(books, idx))
+
+    return filteringBooksByRating(books, answer, low, high, idx=idx+1)
+
+
+def iterativeFilterBooksByRating(catalog, low, high):
+    # TODO implementar iterativamente el filtrado para el lab 5
+    # inicializa la lista de libros y el promedio
+    answer = lt.newList("SINGLE_LINKED",
+                        cmpfunction=comparebooks)
+    # toma la lista de libros del catalogo
+    books = catalog["books"]
+    # itera sobre la lista de libros y suma los ratings
+    for book in lt.iterator(books):
+        cond = float(book["average_rating"])
+        # si el rating del libro esta entre los limites, lo agrega a la lista
+        if low <= cond <= high:
+            lt.addLast(answer, book)
+    # devuelve la lista de libros filtrados
+    return answer

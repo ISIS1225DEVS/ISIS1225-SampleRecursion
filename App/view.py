@@ -229,7 +229,20 @@ def thread_cycle():
 
         elif int(inputs) == 9:
             # TODO completar modificaciones para el lab 5
-            print("TODO!!!")
+            print("Filtra los libros con un rating entre dos valores")
+            lower = float(input("Ingrese el rating mínimo: "))
+            upper = float(input("Ingrese el rating máximo: "))
+            result = controller.filterBooksByRating(control,
+                                                    lower,
+                                                    upper,
+                                                    recursive=rec)
+            print("===== Los libros entre", lower, "y", upper, "son: =====")
+            delta_time = f"{result[0]:.3f}"
+            filtered_list = result[1]
+            size = lt.size(filtered_list)
+            print("Para", size, "elementos, tiempo:", str(delta_time), "[ms]")
+            print("Algoritmo recursivo:", rec)
+            printSortResults(filtered_list)
 
         elif int(inputs) == 10:
             # configurar si usa algoritmos recursivos
