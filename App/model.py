@@ -27,7 +27,8 @@
 import random
 import config as cf
 from DISClib.ADT import list as lt
-from DISClib.Algorithms.Sorting import mergesort as ms
+# from DISClib.Algorithms.Sorting import mergesort as ms
+from DISClib.Algorithms.Sorting import quicksort as qs
 assert cf
 
 """
@@ -245,7 +246,7 @@ def sortBooks(catalog):
     # toma la lista de libros del catalogo
     books = catalog["books"]
     # ordena la lista de libros
-    sorted_list = ms.sort(books, compareISBN)
+    sorted_list = qs.sort(books, compareISBN)
     # actualiza la lista de libros del catalogo
     catalog["books"] = sorted_list
     return sorted_list
@@ -285,7 +286,7 @@ def findBookbyISBN(catalog, bookid, recursive=True):
     Mascaras para las funciones de busqueda de libros por ISBN,
     elige entre la implementacion recursiva e iterativa
     """
-    # TODO implementar la mascara de la busqueda para el lab 5
+    # TODO implementar la mascara para la busqueda binaria en lab 5 (parte 2)
     # si recursive es True, llama la funcion recursiva
     if recursive:
         return recursiveSearchBookByISBN(catalog, bookid)
@@ -299,7 +300,7 @@ def averageBookRatings(catalog, recursive=True):
     Mascara para las funciones de calculo del promedio de ratings,
     elige entre la implementacion recursiva e iterativa
     """
-    # TODO implementar la mascara del calculo del promedio para el lab 5
+    # TODO implementar la mascara para calcular el promedio en lab 5 (parte 2)
     #  si recursive es True, llama la funcion recursiva
     if recursive:
         return recursiveAvgBooksRating(catalog)
@@ -313,7 +314,7 @@ def filterBooksByRating(catalog, low, high, recursive=True):
     Mascara para las funciones de filtrado de libros por rating,
     elige entre la implementacion recursiva e iterativa
     """
-    # TODO implementar la mascara del filtrado de libros para el lab 5
+    # TODO implementar la mascara para filtrar libros en lab 5 (parte 2)
     # si recursive es True, llama la funcion recursiva
     if recursive:
         return recursiveFilterBooksByRating(catalog, low, high)
@@ -584,7 +585,8 @@ def iterativeFilterBooksByRating(catalog, low, high):
         high (_type_): limite superior de busqueda para el rating
 
     Returns:
-        ADT List: lista de libros filtrados, inicialmente vacia y SINGLE_LINKED
+        ADT List: lista de libros filtrados, inicialmente vacia y por
+        defecto SINGLE_LINKED
     """
     # TODO implementar iterativamente el filtrado para el lab 5
     # inicializa la lista de libros para filtrar

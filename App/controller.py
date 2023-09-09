@@ -50,7 +50,6 @@ def newController():
 
 # Funciones para la carga de datos
 
-
 def loadData(control):
     """
     Carga los datos de los archivos y cargar los datos en la
@@ -69,6 +68,7 @@ def loadBooks(catalog):
     cada uno de ellos, se crea en la lista de autores, a dicho autor y una
     referencia al libro que se esta procesando.
     """
+    # TODO cambiar nombre del archivo para el lab 5 (parte 1)
     booksfile = cf.data_dir + "GoodReads/books.csv"
     input_file = csv.DictReader(open(booksfile, encoding="utf-8"))
     for book in input_file:
@@ -77,9 +77,20 @@ def loadBooks(catalog):
             book["isbn13"] = int(float(book["isbn13"]))
         else:
             book["isbn13"] = 0
-            # print(book)
         model.addBook(catalog, book)
     return model.bookSize(catalog), model.authorSize(catalog)
+
+
+def loadBooksTags(catalog):
+    """
+    Carga la información que asocia tags con libros.
+    """
+    # TODO cambiar nombre del archivo para el lab 5 (parte 1)
+    booktagsfile = cf.data_dir + "GoodReads/book_tags.csv"
+    input_file = csv.DictReader(open(booktagsfile, encoding="utf-8"))
+    for booktag in input_file:
+        model.addBookTag(catalog, booktag)
+    return model.bookTagSize(catalog)
 
 
 def loadTags(catalog):
@@ -93,17 +104,6 @@ def loadTags(catalog):
     return model.tagSize(catalog)
 
 
-def loadBooksTags(catalog):
-    """
-    Carga la información que asocia tags con libros.
-    """
-    booktagsfile = cf.data_dir + "GoodReads/book_tags.csv"
-    input_file = csv.DictReader(open(booktagsfile, encoding="utf-8"))
-    for booktag in input_file:
-        model.addBookTag(catalog, booktag)
-    return model.bookTagSize(catalog)
-
-
 # Funciones de ordenamiento
 
 def sortBooks(control):
@@ -113,7 +113,7 @@ def sortBooks(control):
     con getTime(). Finalmente calcula el tiempo que demoró la ejecución
     de la función con deltaTime()
     """
-    # TODO completar los cambios del return en el sort para el lab 4 (Parte 2).
+    # TODO inspeccionar el codigo para entenderlo en el lab 5 (parte 1)
     start_time = getTime()
     sorted_list = model.sortBooks(control['model'])
     end_time = getTime()
@@ -128,6 +128,7 @@ def shuffleBooks(control):
     con getTime(). Finalmente calcula el tiempo que demoró la ejecución
     de la función con deltaTime()
     """
+    # TODO inspeccionar el codigo para entenderlo en el lab 5 (parte 1)
     start_time = getTime()
     unsorted_list = model.shuffleBooks(control['model'])
     end_time = getTime()
@@ -194,9 +195,10 @@ def findBookByISBN(control, isbn, recursive=True):
     """
     Busca un libro por su ISBN
     """
+    # TODO completar la funcion con toma de tiempo para el lab 5 (parte 2)
     # inicializa el tiempo de procesamiento
     star_time = getTime()
-    # ejecuta la busqueda
+    # ejecuta la busqueda en el modelo
     book = model.findBookbyISBN(control["model"],
                                 isbn,
                                 recursive=recursive)
@@ -212,9 +214,10 @@ def getBooksAverageRating(control, recursive=True):
     """
     Retorna el promedio de los ratings de los libros
     """
+    # TODO completar la funcion con toma de tiempo para el lab 5 (parte 2)
     # inicializa el tiempo de procesamiento
     star_time = getTime()
-    # ejecuta el promedio
+    # ejecuta el promedio en el modelo
     avg = model.averageBookRatings(control["model"],
                                    recursive=recursive)
     end_time = getTime()
@@ -229,9 +232,10 @@ def filterBooksByRating(control, lower, upper, recursive=True):
     """
     Retorna los libros que tienen un rating entre lower y upper
     """
+    # TODO completar la funcion con toma de tiempo para el lab 5 (parte 2)
     # inicializa el tiempo de procesamiento
     star_time = getTime()
-    # ejecuta el filtro
+    # ejecuta el filtro en el modelo
     books = model.filterBooksByRating(control["model"],
                                       lower,
                                       upper,

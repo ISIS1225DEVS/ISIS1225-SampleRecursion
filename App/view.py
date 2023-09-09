@@ -27,7 +27,10 @@ import config as cf
 import sys
 # import resource
 import gc
+# TODO completar con las importaciones de threading lab 5 (parte 2)
+# muere start
 import threading
+# muere end
 import controller
 from DISClib.ADT import list as lt
 assert cf
@@ -56,11 +59,13 @@ def printMenu():
     print("4- Libros por género")
     print("5- Ordenar los libros por ISBN")
     print("6- Desordenar los libros por ISBN")
-    # TODO completar opciones del menu para el lab 5
+    # TODO agregar opciones al menu del lab 5 (parte 2)
+    # MUERE START
     print("7- Buscar un libro por ISBN")
     print("8- Calcular el rating promedio de libros")
     print("9- Recuperar el primer libro con un rating dado")
     print("10- Cambiar tipo de algoritmos (recursivos o iterativos)")
+    # MUERE END
     print("0- Salir")
 
 
@@ -121,12 +126,14 @@ def printSortResults(sort_books, sample=3):
 
 def printSearchResults(book):
     # TODO completar funcion para imprimir resultados search lab 5
+    # MUERE START
     if book is not None:
         print("El libro es: ")
         for key in book.keys():
             print("\t'" + key + "': ", book[key])
     else:
         print("El libro no se encuentra en la lista!!!")
+    # MUERE END
 
 
 # Se crea el controlador asociado a la vista
@@ -141,7 +148,7 @@ default_limit = 1000
 bool_lt_opt = ("s", "S", "1", True, "true", "True", "si", "Si", "SI")
 
 
-def thread_cycle():
+def menu_cycle():
 
     """
     Menu principal
@@ -200,7 +207,8 @@ def thread_cycle():
             printSortResults(shuffled_list)
 
         elif int(inputs) == 7:
-            # TODO completar modificaciones para el lab 5
+            # TODO modificar opcion 7 del menu en el lab 5 (parte 2)
+            # MUERE START
             isbn = input("Ingrese el ISBN del libro a buscar: ")
             isbn = int(isbn)
             result = controller.findBookByISBN(control,
@@ -213,9 +221,11 @@ def thread_cycle():
                   ", tiempo:", str(delta_time), "[ms]")
             print("Algoritmo recursivo:", rec)
             printSearchResults(book)
+            # MUERE END
 
         elif int(inputs) == 8:
-            # TODO completar modificaciones para el lab 5
+            # TODO modificar opcion 8 del menu en el lab 5 (parte 2)
+            # MUERE START
             result = controller.getBooksAverageRating(control,
                                                       recursive=rec)
             delta_time = f"{result[0]:.3f}"
@@ -226,9 +236,11 @@ def thread_cycle():
             average = f"{average:.3f}"
             print("Algoritmo recursivo:", rec)
             print("El rating promedio es:", average)
+            # MUERE END
 
         elif int(inputs) == 9:
-            # TODO completar modificaciones para el lab 5
+            # TODO modificar opcion 9 del menu en el lab 5 (parte 2)
+            # MUERE START
             print("Filtra los libros con un rating entre dos valores")
             lower = float(input("Ingrese el rating mínimo: "))
             upper = float(input("Ingrese el rating máximo: "))
@@ -243,14 +255,18 @@ def thread_cycle():
             print("Para", size, "elementos, tiempo:", str(delta_time), "[ms]")
             print("Algoritmo recursivo:", rec)
             printSortResults(filtered_list)
+            # MUERE END
 
         elif int(inputs) == 10:
+            # TODO modificar opcion 10 del menu en el lab 5 (parte 2)
+            # MUERE START
             # configurar si usa algoritmos recursivos
             rec = input("Usar algoritmos recursivos? (S/N): ")
             if rec in bool_lt_opt:
                 rec = True
             else:
                 rec = False
+            # MUERE END
 
         elif int(inputs) == 0:
             working = False
@@ -269,8 +285,11 @@ def thread_cycle():
 
 # main del ejercicio
 if __name__ == "__main__":
-    threading.stack_size(67108864*2)  # 128MB stack
+    # # MUERE START
+    # threading.stack_size(67108864*2)  # 128MB stack
     sys.setrecursionlimit(default_limit*1000000)
-    # sys.setrecursionlimit(2 ** 20)
-    thread = threading.Thread(target=thread_cycle)
-    thread.start()
+    # # sys.setrecursionlimit(2 ** 20)
+    # thread = threading.Thread(target=thread_cycle)
+    # thread.start()
+    # # MUERE END
+    menu_cycle()
