@@ -195,7 +195,6 @@ def findBookByISBN(control, isbn, recursive=True):
     """
     Busca un libro por su ISBN
     """
-    # TODO examinar la funcion con toma de tiempo (parte 2)
     # inicializa el tiempo de procesamiento
     star_time = getTime()
     # ejecuta la busqueda en el modelo
@@ -214,7 +213,6 @@ def getBooksAverageRating(control, recursive=True):
     """
     Retorna el promedio de los ratings de los libros
     """
-    # TODO examinar la funcion con toma de tiempo (parte 2)
     # inicializa el tiempo de procesamiento
     star_time = getTime()
     # ejecuta el promedio en el modelo
@@ -232,7 +230,6 @@ def filterBooksByRating(control, lower, upper, recursive=True):
     """
     Retorna los libros que tienen un rating entre lower y upper
     """
-    # TODO examinar la funcion con toma de tiempo (parte 2)
     star_time = getTime()
     # ejecuta el filtro en el modelo
     books = model.filterBooksByRating(control["model"],
