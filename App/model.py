@@ -466,23 +466,7 @@ def filteringBooksByRating(books, answer, low, high, idx=1):
         ADT List: lista de libros filtrados
     """
     # TODO implementar recursivamente el filtrado (parte 2)
-    # si la lista esta vacia, retorna una lista vacia
-    answer = lt.newList("SINGLE_LINKED",
-                        cmpfunction=comparebooks)
-
-    if lt.isEmpty(books) is True:
-        return answer
-
-    cond = float(lt.getElement(books, idx)["average_rating"])
-    # si el rating del libro esta entre los limites, lo agrega a la lista
-    if low <= cond <= high:
-        lt.addLast(answer, lt.getElement(books, idx))
-    # si el indice es es igual al tamaño de la lista, retorna la lista
-    if idx == lt.size(books):
-        # ya se termino el procesamiento de los libros
-        return answer
-    else:
-        return filteringBooksByRating(books, answer, low, high, idx=idx+1)
+    pass
 
 
 def iterativeFilterBooksByRating(catalog, low, high):
@@ -500,16 +484,4 @@ def iterativeFilterBooksByRating(catalog, low, high):
         defecto SINGLE_LINKED
     """
     # TODO implementar iterativamente el filtrado (parte 2)
-    # inicializa la lista de libros para filtrar
-    answer = lt.newList("SINGLE_LINKED",
-                        cmpfunction=comparebooks)
-    # toma la lista de libros del catalogo
-    books = catalog["books"]
-    # itera sobre la lista de libros y suma los ratings
-    for book in lt.iterator(books):
-        cond = float(book["average_rating"])
-        # si el rating del libro esta entre los limites, lo agrega a la lista
-        if low <= cond <= high:
-            lt.addLast(answer, book)
-    # devuelve la lista de libros filtrados
-    return answer
+    pass
