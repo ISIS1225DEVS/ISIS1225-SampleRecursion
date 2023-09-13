@@ -28,9 +28,6 @@ import sys
 # import resource
 import gc
 # TODO importar la libreria threading (parte 2)
-# muere start
-import threading
-# muere end
 import controller
 from DISClib.ADT import list as lt
 assert cf
@@ -60,12 +57,6 @@ def printMenu():
     print("5- Ordenar los libros por ISBN")
     print("6- Desordenar los libros por ISBN")
     # TODO agregar opciones al menu (parte 2)
-    # MUERE START
-    print("7- Buscar un libro por ISBN")
-    print("8- Calcular el rating promedio de libros")
-    print("9- Filtrar el catalogo de libros por un rango de califaciones")
-    print("10- Cambiar tipo de algoritmos (recursivos o iterativos)")
-    # MUERE END
     print("0- Salir")
 
 
@@ -206,65 +197,19 @@ def menu_cycle():
 
         elif int(inputs) == 7:
             # TODO modificar opcion 7 del menu (parte 2)
-            # MUERE START
-            isbn = input("Ingrese el ISBN del libro a buscar: ")
-            isbn = int(isbn)
-            result = controller.findBookByISBN(control,
-                                               isbn,
-                                               recursive=rec)
-            delta_time = f"{result[0]:.3f}"
-            book = result[1]
-            print("===== El libro encontrado es: =====")
-            print("Para encontrar el libro con ISBN", isbn,
-                  ", tiempo:", str(delta_time), "[ms]")
-            print("Algoritmo recursivo:", rec)
-            printSearchResults(book)
-            # MUERE END
+            pass
 
         elif int(inputs) == 8:
             # TODO modificar opcion 8 del menu (parte 2)
-            # MUERE START
-            result = controller.getBooksAverageRating(control,
-                                                      recursive=rec)
-            delta_time = f"{result[0]:.3f}"
-            average = result[1]
-            print("===== El rating promedio de los libros es: =====")
-            print("Para", controller.bookSize(control), "elementos, tiempo:",
-                  str(delta_time), "[ms]")
-            average = f"{average:.3f}"
-            print("Algoritmo recursivo:", rec)
-            print("El rating promedio es:", average)
-            # MUERE END
+            pass
 
         elif int(inputs) == 9:
             # TODO modificar opcion 9 del menu (parte 2)
-            # MUERE START
-            print("Filtra los libros con un rating entre dos valores")
-            lower = float(input("Ingrese el rating mínimo: "))
-            upper = float(input("Ingrese el rating máximo: "))
-            result = controller.filterBooksByRating(control,
-                                                    lower,
-                                                    upper,
-                                                    recursive=rec)
-            print("===== Los libros entre", lower, "y", upper, "son: =====")
-            delta_time = f"{result[0]:.3f}"
-            filtered_list = result[1]
-            size = lt.size(filtered_list)
-            print("Para", size, "elementos, tiempo:", str(delta_time), "[ms]")
-            print("Algoritmo recursivo:", rec)
-            printSortResults(filtered_list)
-            # MUERE END
+            pass
 
         elif int(inputs) == 10:
             # TODO modificar opcion 10 del menu (parte 2)
-            # MUERE START
-            # configurar si usa algoritmos recursivos
-            rec = input("Usar algoritmos recursivos? (S/N): ")
-            if rec in bool_lt_opt:
-                rec = True
-            else:
-                rec = False
-            # MUERE END
+            pass
 
         elif int(inputs) == 0:
             working = False
@@ -284,10 +229,4 @@ def menu_cycle():
 # main del ejercicio
 if __name__ == "__main__":
     # TODO modificar main para reserar memoria (parte 2)
-    # # MUERE START
-    threading.stack_size(67108864*2)  # 128MB stack
-    sys.setrecursionlimit(default_limit*1000000)
-    thread = threading.Thread(target=menu_cycle)
-    thread.start()
-    # # MUERE END
-    # menu_??cycle()
+    menu_cycle()
