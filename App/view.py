@@ -283,7 +283,7 @@ def menu_cycle():
 
 # main del ejercicio
 if __name__ == "__main__":
-    # TODO ajuste del main para reserar memoria (parte 2)
+    # TODO modificar main para reserar memoria (parte 2)
     # # MUERE START
     threading.stack_size(67108864*2)  # 128MB stack
     sys.setrecursionlimit(default_limit*1000000)
