@@ -483,6 +483,9 @@ def AvgBooksRatings(books, idx, n):
         float: promedio de ratings de los libros en la lista
     """
     # TODO implementar recursivamente el calculo del promedio para el lab 5
+    # si no tengo ningún elemento, retorno 0
+    if n==0:
+        return 0
     # si es el ultimo elemento, retorna el promedio
     if idx == n:
         avg = float(lt.getElement(books, idx)["average_rating"])/n
@@ -506,6 +509,9 @@ def iterativeAvgBooksRating(catalog):
     """
     # TODO implementar iterativamente el calculo del promedio para el lab 5
     # inicializa la lista de libros y el promedio
+    # si no tengo ningún elemento, retorno 0
+    if lt.size(books)==0:
+        return 0
     avg = 0
     # recupera la lista de libros del catalogo
     books = catalog["books"]
@@ -562,16 +568,17 @@ def filteringBooksByRating(books, answer, low, high, idx=1):
     if lt.isEmpty(books) is True:
         answer = lt.newList("SINGLE_LINKED")
         return answer
-    # si el indice es es igual al tamaño de la lista, retorna la lista
-    if idx == lt.size(books):
-        return answer
+    
 
     cond = float(lt.getElement(books, idx)["average_rating"])
     # si el rating del libro esta entre los limites, lo agrega a la lista
     if low <= cond <= high:
         lt.addLast(answer, lt.getElement(books, idx))
-
-    return filteringBooksByRating(books, answer, low, high, idx=idx+1)
+    # si el indice es es igual al tamaño de la lista, retorna la lista
+    if idx == lt.size(books): #Ya se termino el procesamiento de los libros
+        return answer
+    else:
+        return filteringBooksByRating(books, answer, low, high, idx=idx+1)
 
 
 def iterativeFilterBooksByRating(catalog, low, high):
