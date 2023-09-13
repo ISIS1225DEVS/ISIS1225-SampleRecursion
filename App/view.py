@@ -27,7 +27,7 @@ import config as cf
 import sys
 # import resource
 import gc
-# TODO completar con las importaciones de threading lab 5 (parte 2)
+# TODO importar la libreria threading (parte 2)
 # muere start
 import threading
 # muere end
@@ -59,11 +59,11 @@ def printMenu():
     print("4- Libros por género")
     print("5- Ordenar los libros por ISBN")
     print("6- Desordenar los libros por ISBN")
-    # TODO agregar opciones al menu del lab 5 (parte 2)
+    # TODO agregar opciones al menu (parte 2)
     # MUERE START
     print("7- Buscar un libro por ISBN")
     print("8- Calcular el rating promedio de libros")
-    print("9- Recuperar el primer libro con un rating dado")
+    print("9- Filtrar el catalogo de libros por un rango de califaciones")
     print("10- Cambiar tipo de algoritmos (recursivos o iterativos)")
     # MUERE END
     print("0- Salir")
@@ -100,40 +100,40 @@ def printBestBooks(books):
 
 
 def printSortResults(sort_books, sample=3):
-    size = lt.size(sort_books)
-    if size <= sample*2:
-        print("Los", size, "libros ordenados son:")
-        for book in lt.iterator(sort_books):
-            print("Titulo:", book["title"], "ISBN:",
-                  book["isbn13"], "Rating:", book["average_rating"])
+    if lt.isEmpty(sort_books):
+        print("La lista esta vacia!!!...")
     else:
-        print("Los", sample, "primeros libros ordenados son:")
-        i = 1
-        while i <= sample:
-            book = lt.getElement(sort_books, i)
-            print("Titulo:", book["title"], "ISBN:",
-                  book["isbn13"], "Rating:", book["average_rating"])
-            i += 1
+        size = lt.size(sort_books)
+        if size <= sample*2:
+            print("Los", size, "libros ordenados son:")
+            for book in lt.iterator(sort_books):
+                print("Titulo:", book["title"], "ISBN:", book["isbn13"],
+                      "Rating:", book["average_rating"])
+        else:
+            print("Los", sample, "primeros libros ordenados son:")
+            i = 1
+            while i <= sample:
+                book = lt.getElement(sort_books, i)
+                print("Titulo:", book["title"], "ISBN:", book["isbn13"],
+                      "Rating:", book["average_rating"])
+                i += 1
 
-        print("Los", sample, "últimos libros ordenados son:")
-        i = size - sample + 1
-        while i <= size:
-            book = lt.getElement(sort_books, i)
-            print("Titulo:", book["title"], "ISBN:",
-                  book["isbn13"], "Rating:", book["average_rating"])
-            i += 1
+            print("Los", sample, "últimos libros ordenados son:")
+            i = size - sample + 1
+            while i <= size:
+                book = lt.getElement(sort_books, i)
+                print("Titulo:", book["title"], "ISBN:", book["isbn13"],
+                      "Rating:", book["average_rating"])
+                i += 1
 
 
 def printSearchResults(book):
-    # TODO completar funcion para imprimir resultados search lab 5
-    # MUERE START
     if book is not None:
         print("El libro es: ")
         for key in book.keys():
             print("\t'" + key + "': ", book[key])
     else:
         print("El libro no se encuentra en la lista!!!")
-    # MUERE END
 
 
 # Se crea el controlador asociado a la vista
@@ -187,7 +187,6 @@ def menu_cycle():
             print("Se encontraron: ", book_count, " Libros")
 
         elif int(inputs) == 5:
-            # TODO completar modificaciones para el lab 5
             result = controller.sortBooks(control)
             delta_time = f"{result[0]:.3f}"
             sorted_list = result[1]
@@ -197,7 +196,6 @@ def menu_cycle():
             printSortResults(sorted_list)
 
         elif int(inputs) == 6:
-            # TODO completar modificaciones para el lab 5
             result = controller.shuffleBooks(control)
             delta_time = f"{result[0]:.3f}"
             shuffled_list = result[1]
@@ -207,7 +205,7 @@ def menu_cycle():
             printSortResults(shuffled_list)
 
         elif int(inputs) == 7:
-            # TODO modificar opcion 7 del menu en el lab 5 (parte 2)
+            # TODO modificar opcion 7 del menu (parte 2)
             # MUERE START
             isbn = input("Ingrese el ISBN del libro a buscar: ")
             isbn = int(isbn)
@@ -224,7 +222,7 @@ def menu_cycle():
             # MUERE END
 
         elif int(inputs) == 8:
-            # TODO modificar opcion 8 del menu en el lab 5 (parte 2)
+            # TODO modificar opcion 8 del menu (parte 2)
             # MUERE START
             result = controller.getBooksAverageRating(control,
                                                       recursive=rec)
@@ -239,7 +237,7 @@ def menu_cycle():
             # MUERE END
 
         elif int(inputs) == 9:
-            # TODO modificar opcion 9 del menu en el lab 5 (parte 2)
+            # TODO modificar opcion 9 del menu (parte 2)
             # MUERE START
             print("Filtra los libros con un rating entre dos valores")
             lower = float(input("Ingrese el rating mínimo: "))
@@ -258,7 +256,7 @@ def menu_cycle():
             # MUERE END
 
         elif int(inputs) == 10:
-            # TODO modificar opcion 10 del menu en el lab 5 (parte 2)
+            # TODO modificar opcion 10 del menu (parte 2)
             # MUERE START
             # configurar si usa algoritmos recursivos
             rec = input("Usar algoritmos recursivos? (S/N): ")
@@ -285,10 +283,11 @@ def menu_cycle():
 
 # main del ejercicio
 if __name__ == "__main__":
+    # TODO modificar main para reserar memoria (parte 2)
     # # MUERE START
     threading.stack_size(67108864*2)  # 128MB stack
     sys.setrecursionlimit(default_limit*1000000)
     thread = threading.Thread(target=menu_cycle)
     thread.start()
     # # MUERE END
-    # menu_cycle()
+    # menu_??cycle()

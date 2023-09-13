@@ -68,7 +68,7 @@ def loadBooks(catalog):
     cada uno de ellos, se crea en la lista de autores, a dicho autor y una
     referencia al libro que se esta procesando.
     """
-    # TODO cambiar nombre del archivo para el lab 5 (parte 1)
+    # TODO cambiar nombre del archivo (parte 1)
     booksfile = cf.data_dir + "GoodReads/books.csv"
     input_file = csv.DictReader(open(booksfile, encoding="utf-8"))
     for book in input_file:
@@ -85,7 +85,7 @@ def loadBooksTags(catalog):
     """
     Carga la información que asocia tags con libros.
     """
-    # TODO cambiar nombre del archivo para el lab 5 (parte 1)
+    # TODO cambiar nombre del archivo (parte 1)
     booktagsfile = cf.data_dir + "GoodReads/book_tags.csv"
     input_file = csv.DictReader(open(booktagsfile, encoding="utf-8"))
     for booktag in input_file:
@@ -113,7 +113,7 @@ def sortBooks(control):
     con getTime(). Finalmente calcula el tiempo que demoró la ejecución
     de la función con deltaTime()
     """
-    # TODO inspeccionar el codigo para entenderlo en el lab 5 (parte 1)
+    # TODO examinar el redireccionamiento (parte 1)
     start_time = getTime()
     sorted_list = model.sortBooks(control['model'])
     end_time = getTime()
@@ -128,7 +128,7 @@ def shuffleBooks(control):
     con getTime(). Finalmente calcula el tiempo que demoró la ejecución
     de la función con deltaTime()
     """
-    # TODO inspeccionar el codigo para entenderlo en el lab 5 (parte 1)
+    # TODO examinar el redireccionamiento (parte 1)
     start_time = getTime()
     unsorted_list = model.shuffleBooks(control['model'])
     end_time = getTime()
@@ -195,7 +195,7 @@ def findBookByISBN(control, isbn, recursive=True):
     """
     Busca un libro por su ISBN
     """
-    # TODO completar la funcion con toma de tiempo para el lab 5 (parte 2)
+    # TODO examinar la funcion con toma de tiempo (parte 2)
     # inicializa el tiempo de procesamiento
     star_time = getTime()
     # ejecuta la busqueda en el modelo
@@ -214,7 +214,7 @@ def getBooksAverageRating(control, recursive=True):
     """
     Retorna el promedio de los ratings de los libros
     """
-    # TODO completar la funcion con toma de tiempo para el lab 5 (parte 2)
+    # TODO examinar la funcion con toma de tiempo (parte 2)
     # inicializa el tiempo de procesamiento
     star_time = getTime()
     # ejecuta el promedio en el modelo
@@ -232,8 +232,7 @@ def filterBooksByRating(control, lower, upper, recursive=True):
     """
     Retorna los libros que tienen un rating entre lower y upper
     """
-    # TODO completar la funcion con toma de tiempo para el lab 5 (parte 2)
-    # inicializa el tiempo de procesamiento
+    # TODO examinar la funcion con toma de tiempo (parte 2)
     star_time = getTime()
     # ejecuta el filtro en el modelo
     books = model.filterBooksByRating(control["model"],

@@ -232,7 +232,7 @@ def compareISBN(book1, book2):
     """
     compara dos libros por su ISBN
     """
-    # TODO completar el criterio de ordenamiento para el lab 5
+    # TODO examinar el criterio de ordenamiento (parte 1)
     return (str(book1["isbn13"]) > str(book2["isbn13"]))
 
 
@@ -242,7 +242,7 @@ def sortBooks(catalog):
     """
     Ordena los libros por ISBN
     """
-    # TODO completar los cambios del return en el sort para el lab 5
+    # TODO examinar el ordenamiento (parte 1)
     # toma la lista de libros del catalogo
     books = catalog["books"]
     # ordena la lista de libros
@@ -256,8 +256,7 @@ def shuffleBooks(catalog):
     """
     Desordena los libros dentro del catalogo
     """
-    # TODO completar los cambios del return en el sort para el lab 5
-    # toma la lista de libros del catalogo
+    # TODO examinar la funcion para desordenar (parte 1)
     books = catalog["books"]
     element_num = lt.size(books)
     # creo la nueva lista desordenada vacia
@@ -286,7 +285,7 @@ def findBookbyISBN(catalog, bookid, recursive=True):
     Mascaras para las funciones de busqueda de libros por ISBN,
     elige entre la implementacion recursiva e iterativa
     """
-    # TODO implementar la mascara para la busqueda binaria en lab 5 (parte 2)
+    # TODO implementar la mascara para la busqueda binaria (parte 2)
     # si recursive es True, llama la funcion recursiva
     if recursive:
         return recursiveSearchBookByISBN(catalog, bookid)
@@ -300,7 +299,7 @@ def averageBookRatings(catalog, recursive=True):
     Mascara para las funciones de calculo del promedio de ratings,
     elige entre la implementacion recursiva e iterativa
     """
-    # TODO implementar la mascara para calcular el promedio en lab 5 (parte 2)
+    # TODO implementar la mascara para calcular el promedio (parte 2)
     #  si recursive es True, llama la funcion recursiva
     if recursive:
         return recursiveAvgBooksRating(catalog)
@@ -314,7 +313,7 @@ def filterBooksByRating(catalog, low, high, recursive=True):
     Mascara para las funciones de filtrado de libros por rating,
     elige entre la implementacion recursiva e iterativa
     """
-    # TODO implementar la mascara para filtrar libros en lab 5 (parte 2)
+    # TODO implementar la mascara para filtrar libros (parte 2)
     # si recursive es True, llama la funcion recursiva
     if recursive:
         return recursiveFilterBooksByRating(catalog, low, high)
@@ -338,7 +337,7 @@ def recursiveSearchBookByISBN(catalog, bookisbn):
         book: el diccionario que cumple con el ISBN dentro de la
         lista de libros
     """
-    # TODO implementar la mascara de la busqueda recursiva para el lab 5
+    # TODO implementar la mascara de la busqueda recursiva (parte 2)
     # inicializa los limites de la lista de libros
     low = 1
     high = lt.size(catalog["books"])
@@ -371,7 +370,7 @@ def searchBookByISBN(books, bookisbn, low, high):
     Returns:
         int: indice del libro en la lista, -1 si no lo encuentra
     """
-    # TODO implementar recursivamente binary search para el lab 5
+    # TODO implementar recursivamente binary search (parte 2)
     # si los limites de busqueda son adecuados
     if high >= low:
         # CASO BASE
@@ -407,7 +406,7 @@ def iterativeSearchBookByISBN(catalog, bookid):
         book: el diccionario que cumple con el ISBN dentro de la
         lista de libros
     """
-    # TODO implementacion iterativa del binary search para el lab 5
+    # TODO implementacion iterativa del binary search (parte 2)
     # inicializa los limites de la lista de libros
     books = catalog["books"]
     # Recuerde el indice de las listas DISCLib empieza en 1
@@ -457,7 +456,7 @@ def recursiveAvgBooksRating(catalog):
     Returns:
         float: promedio de ratings de los libros en el catalogo
     """
-    # TODO implementar recursivamente el calculo del promedio para el lab 5
+    # TODO implementar recursivamente el calculo del promedio (parte 2)
     # inicializa la lista de libros y el promedio
     # indice de inicio de la lista
     idx = 1
@@ -507,7 +506,7 @@ def iterativeAvgBooksRating(catalog):
     Returns:
         float: promedio de ratings de los libros en la lista
     """
-    # TODO implementar iterativamente el calculo del promedio para el lab 5
+    # TODO implementar iterativamente el calculo del promedio (parte 2)
     # inicializa la lista de libros y el promedio
     # si no tengo ningún elemento, retorno 0
     if lt.size(books)==0:
@@ -537,7 +536,7 @@ def recursiveFilterBooksByRating(catalog, low, high):
     Returns:
         ADT List: listado de libros que cumplen con el rango de rating
     """
-    # TODO implementar recursivamente el filtrado para el lab 5
+    # TODO implementar recursivamente el filtrado (parte 2)
     # inicializa la lista de libros y el indice
     i = 1
     books = catalog["books"]
@@ -563,7 +562,7 @@ def filteringBooksByRating(books, answer, low, high, idx=1):
     Returns:
         ADT List: lista de libros filtrados
     """
-    # TODO implementar recursivamente el filtrado para el lab 5
+    # TODO implementar recursivamente el filtrado (parte 2)
     # si la lista esta vacia, retorna una lista vacia
     if lt.isEmpty(books) is True:
         answer = lt.newList("SINGLE_LINKED")
@@ -595,7 +594,7 @@ def iterativeFilterBooksByRating(catalog, low, high):
         ADT List: lista de libros filtrados, inicialmente vacia y por
         defecto SINGLE_LINKED
     """
-    # TODO implementar iterativamente el filtrado para el lab 5
+    # TODO implementar iterativamente el filtrado (parte 2)
     # inicializa la lista de libros para filtrar
     answer = lt.newList("SINGLE_LINKED",
                         cmpfunction=comparebooks)
