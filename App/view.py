@@ -56,7 +56,12 @@ def printMenu():
     print("4- Libros por género")
     print("5- Ordenar los libros por ISBN")
     print("6- Desordenar los libros por ISBN")
+    
     # TODO agregar opciones al menu (parte 2)
+    print("7- Buscar un libro por ISBN")
+    print("8- Calcular el rating promedio de libros")
+    print("9- Filtrar el catálogo de libros por un rango de califaciones")
+    print("10- Cambiar tipo de algoritmos (recursivos o iterativos)")
     print("0- Salir")
 
 
@@ -196,19 +201,61 @@ def menu_cycle():
             printSortResults(shuffled_list)
 
         elif int(inputs) == 7:
+        # TODO modificar opcion 7 del menu en el lab 5 (parte 2)
+            isbn = input("Ingrese el ISBN del libro a buscar: ")
+            isbn = int(isbn)
+            result = controller.findBookByISBN(control,
+                                                isbn,
+                                                recursive=rec)
+            delta_time = f"{result[0]:.3f}"
+            book = result[1]
+            print("===== El libro encontrado es: =====")
+            print("Para encontrar el libro con ISBN", isbn,
+                ", tiempo:", str(delta_time), "[ms]")
+            print("Algoritmo recursivo:", rec)
+            printSearchResults(book)
             # TODO modificar opcion 7 del menu (parte 2)
-            pass
+            
 
         elif int(inputs) == 8:
             # TODO modificar opcion 8 del menu (parte 2)
-            pass
+            result = controller.getBooksAverageRating(control,
+            recursive=rec)
+            delta_time = f"{result[0]:.3f}"
+            average = result[1]
+            print("===== El rating promedio de los libros es: =====")
+            print("Para", controller.bookSize(control), "elementos, tiempo:",
+                str(delta_time), "[ms]")
+            average = f"{average:.3f}"
+            print("Algoritmo recursivo:", rec)
+            print("El rating promedio es:", average)
+            
 
         elif int(inputs) == 9:
             # TODO modificar opcion 9 del menu (parte 2)
-            pass
+            print("Filtra los libros con un rating entre dos valores")
+            lower = float(input("Ingrese el rating mínimo: "))
+            upper = float(input("Ingrese el rating máximo: "))
+            result = controller.filterBooksByRating(control,
+                                                    lower,
+                                                    upper,
+                                                    recursive=rec)
+            print("===== Los libros entre", lower, "y", upper, "son: =====")
+            delta_time = f"{result[0]:.3f}"
+            filtered_list = result[1]
+            size = lt.size(filtered_list)
+            print("Para", size, "elementos, tiempo:", str(delta_time), "[ms]")
+            print("Algoritmo recursivo:", rec)
+            printSortResults(filtered_list)
+            
 
         elif int(inputs) == 10:
             # TODO modificar opcion 10 del menu (parte 2)
+            rec = input("Usar algoritmos recursivos? (S/N): ")
+            if rec in bool_lt_opt:
+                rec = True
+            else:
+                rec = False
             pass
 
         elif int(inputs) == 0:
