@@ -25,7 +25,6 @@
 
 import config as cf
 import sys
-# import resource
 import gc
 # TODO importar la libreria threading (parte 2)
 import controller
