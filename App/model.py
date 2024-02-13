@@ -281,9 +281,9 @@ def shuffleBooks(catalog):
 # Funciones de busqueda y filtros
 
 def searchBookByISBN(catalog, bookisbn):
-    """searchBookByISBN es la MASCARA para la busqueda recursiva,
-    recibe el catalogo y el ISBN del libro buscarlo en la lista de libros del
-    catalogo y prepara las condiciones para la recursion
+    """searchBookByISBN es la MASCARA para la busqueda recursiva, recibe el
+    catalogo y el ISBN del libro buscarlo en la lista de libros del catalogo
+    y prepara las condiciones para la recursion
 
     Args:
         catalog (dict): el catalogo de libros
@@ -298,9 +298,9 @@ def searchBookByISBN(catalog, bookisbn):
 
 
 def recursiveSearchBookByISBN(books, bookisbn, low, high):
-    """recursiveSearchBookByISBN ejecuta recursivamente la busqueda binaria el ISBN
-    del libro en la lista, si no lo encuentra retorna -1, utiliza la llave
-    "isbn13" para la comparacion
+    """recursiveSearchBookByISBN ejecuta recursivamente la busqueda binaria
+    el ISBN del libro en la lista, si no lo encuentra retorna -1, utiliza la
+    llave "isbn13" para la comparacion
 
     Args:
         books (ADT List): lista de libros en el catalogo
@@ -316,9 +316,9 @@ def recursiveSearchBookByISBN(books, bookisbn, low, high):
 
 
 def iterativeSearchBookByISBN(catalog, bookid):
-    """iterativeSearchBookByISBN ejecuta iterativamente la busqueda
-    binaria el ISBN del libro en la lista, si no lo encuentra retorna -1,
-    utiliza la llave "isbn13" para la comparacion
+    """iterativeSearchBookByISBN ejecuta iterativamente la busqueda binaria el
+    ISBN del libro en la lista, si no lo encuentra retorna -1, utiliza la llave
+    "isbn13" para la comparacion
 
     Args:
         catalog (dict): el catalogo de libros
@@ -335,9 +335,9 @@ def iterativeSearchBookByISBN(catalog, bookid):
 # funciones para calcular estadisticas
 
 def AvgBooksRatings(catalog):
-    """AvgBooksRatings es la MASCARA para el calculo recursivo del
-    promedio de ratings de los libros en el catalogo, utiliza la llave
-    "average_rating" y prepara las condiciones para la recursion
+    """AvgBooksRatings es la MASCARA para el calculo recursivo del promedio de
+    ratings de los libros en el catalogo, utiliza la llave "average_rating" y
+    prepara las condiciones para la recursion
 
     Args:
         catalog (dict): el catalogo de libros
@@ -350,9 +350,9 @@ def AvgBooksRatings(catalog):
 
 
 def recursiveAvgBooksRating(books, idx, n):
-    """recursiveAvgBooksRating ejecuta recursivamente el promedio de ratings teniendo
-    en cuenta el indice de inicio y el total de libros a procesar por la llave
-    "average_rating"
+    """recursiveAvgBooksRating ejecuta recursivamente el promedio de ratings
+    teniendo en cuenta el indice de inicio y el total de libros a procesar por
+    la llave "average_rating"
 
     Args:
         books (ADT List): lista de libros en el catalogo
@@ -399,10 +399,10 @@ def filterBooksByRating(catalog, low, high):
 
 
 def recursiveFilterBooksByRating(books, answer, low, high, idx=1):
-    """recursiveFilterBooksByRating filtra recursivamente los libros por rating,
-    utiliza la llave "average_rating" y devuelve una lista de libros que se
-    pasan inicialmente vacia por parametro y por defecto inicia el recorrido
-    por el primer elemento de la lista
+    """recursiveFilterBooksByRating filtra recursivamente los libros por
+    rating, utiliza la llave "average_rating" y devuelve una lista de libros
+    que se pasan inicialmente vacia por parametro y por defecto inicia el
+    recorrido por el primer elemento de la lista
 
     Args:
         books (ADT List): lista de libros en el catalogo
