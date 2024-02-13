@@ -197,10 +197,13 @@ def findBookByISBN(control, isbn, recursive=True):
     """
     # inicializa el tiempo de procesamiento
     star_time = getTime()
-    # ejecuta la busqueda en el modelo
-    book = model.findBookbyISBN(control["model"],
-                                isbn,
-                                recursive=recursive)
+    # Decide si busca un libro recursiva o iterativamente
+    if recursive:
+        book = model.searchBookByISBN(control["model"],
+                                      isbn)
+    else:
+        book = model.iterativeSearchBookByISBN(control["model"],
+                                               isbn)
     stop_time = getTime()
     # retorna el tiempo de procesamiento y el libro encontrado
     delta_time = deltaTime(star_time, stop_time)
@@ -215,9 +218,12 @@ def getBooksAverageRating(control, recursive=True):
     """
     # inicializa el tiempo de procesamiento
     star_time = getTime()
-    # ejecuta el promedio en el modelo
-    avg = model.averageBookRatings(control["model"],
-                                   recursive=recursive)
+    # Decide si calcular el promedio recursiva o iterativamente
+    if recursive:
+        avg = model.AvgBooksRatings(control["model"])
+    else:
+        avg = model.iterativeAvgBooksRating(control["model"])
+
     end_time = getTime()
     # retorna el tiempo de procesamiento y el promedio
     delta_time = deltaTime(star_time, end_time)
@@ -231,11 +237,13 @@ def filterBooksByRating(control, lower, upper, recursive=True):
     Retorna los libros que tienen un rating entre lower y upper
     """
     star_time = getTime()
-    # ejecuta el filtro en el modelo
-    books = model.filterBooksByRating(control["model"],
-                                      lower,
-                                      upper,
-                                      recursive=recursive)
+    # Decide si filtra la lista de libros recursiva o iterativamente
+    if recursive:
+        books = model.filterBooksByRating(control["model"], lower, upper)
+    else:
+        books = model.iterativeFilterBooksByRating(control["model"],
+                                                   lower,
+                                                   upper)
     end_time = getTime()
     # retorna el tiempo de procesamiento y los libros encontrados
     delta_time = deltaTime(star_time, end_time)
