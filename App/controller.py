@@ -239,7 +239,7 @@ def filterBooksByRating(control, lower, upper, recursive=True):
     star_time = getTime()
     # Analiza si se desea realizar el filtro recursiva o iterativamente e invoca a la funcion correspondiente.
     if recursive:
-        books = model.filteringBooksByRating(control["model"], lower, upper)
+        books = model.filterBooksByRating(control["model"], lower, upper)
     else:
         books = model.iterativeFilterBooksByRating(control["model"], lower, upper)
     end_time = getTime()

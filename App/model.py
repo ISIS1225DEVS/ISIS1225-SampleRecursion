@@ -362,7 +362,7 @@ def recursiveAvgBooksRating(books, idx, n):
     Returns:
         float: promedio de ratings de los libros en la lista
     """
-    # TODO implementar recursivamente el calculo del promedio para el lab 5
+    # TODO implementar recursivamente el calculo del promedio (parte 2)
     pass
 
 
@@ -381,7 +381,7 @@ def iterativeAvgBooksRating(catalog):
     pass
 
 
-def filteringBooksByRating(catalog, low, high):
+def filterBooksByRating(catalog, low, high):
     """filteringBooksByRating es la MASCARA para el filtrado recursivo de
     libros por rating, utiliza la llave "average_rating" y devuelve una lista
     de libros, tambien prepara las condiciones para la recursion

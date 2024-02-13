@@ -227,5 +227,5 @@ def menu_cycle():
 
 # main del ejercicio
 if __name__ == "__main__":
-    # TODO modificar main para reserar memoria (parte 2)
+    # TODO modificar main para actualizar el límite de recursion de memoria (parte 2)
     menu_cycle()
