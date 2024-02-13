@@ -197,13 +197,13 @@ def findBookByISBN(control, isbn, recursive=True):
     """
     # inicializa el tiempo de procesamiento
     star_time = getTime()
-    # Analiza si se desea realizar la busqueda recursiva o iterativamente e invoca a la funcion correspondiente
+    # Decide si busca un libro recursiva o iterativamente
     if recursive:
         book = model.searchBookByISBN(control["model"],
-                                isbn)
+                                      isbn)
     else:
         book = model.iterativeSearchBookByISBN(control["model"],
-                                isbn)
+                                               isbn)
     stop_time = getTime()
     # retorna el tiempo de procesamiento y el libro encontrado
     delta_time = deltaTime(star_time, stop_time)
@@ -218,7 +218,7 @@ def getBooksAverageRating(control, recursive=True):
     """
     # inicializa el tiempo de procesamiento
     star_time = getTime()
-    # Analiza si se desea realizar obtener el promedio recursiva o iterativamente e invoca a la funcion correspondiente
+    # Decide si calcular el promedio recursiva o iterativamente
     if recursive:
         avg = model.AvgBooksRatings(control["model"])
     else:
@@ -237,11 +237,15 @@ def filterBooksByRating(control, lower, upper, recursive=True):
     Retorna los libros que tienen un rating entre lower y upper
     """
     star_time = getTime()
-    # Analiza si se desea realizar el filtro recursiva o iterativamente e invoca a la funcion correspondiente.
+    # Decide si filtra la lista de libros recursiva o iterativamente
     if recursive:
-        books = model.filteringBooksByRating(control["model"], lower, upper)
+        books = model.filteringBooksByRating(control["model"],
+                                             lower,
+                                             upper)
     else:
-        books = model.iterativeFilterBooksByRating(control["model"], lower, upper)
+        books = model.iterativeFilterBooksByRating(control["model"],
+                                                   lower,
+                                                   upper)
     end_time = getTime()
     # retorna el tiempo de procesamiento y los libros encontrados
     delta_time = deltaTime(star_time, end_time)
